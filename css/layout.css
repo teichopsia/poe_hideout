@@ -1,0 +1,31 @@
+/* vim: set ts=4 et sw=4 tw=0 :*/
+body {
+  background-color: #444;
+  color: #fff;
+  margin: 40px;
+}
+div {text-align:center;line-height:1em;}
+div.hideout {background-color:#444;color:#000;}
+table {
+  border-collapse: collapse;
+  border: 2px solid #000;
+  background-color: #090;
+}
+th { text-align:left; border: 2px solid #000; }
+td { text-align:left; border: 1px solid #000; }
+tr.selected {opacity:0.25;}
+tr.select {opacity:1.0;}
+
+tr:nth-child(even) { background-color: rgb(185,185,185); }
+tr:nth-child(odd) { background-color: rgb(220,220,220); }
+
+.gb {
+  display: inline-grid;
+  background-color: #000;
+  color: #ff0;
+  grid-template-rows: max-content; /*120px 120px 120px 120px 120px;*/
+  grid-gap: 3px;
+  }
+.gb > * {
+  border: 2px solid white;
+}
