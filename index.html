@@ -12,12 +12,18 @@
                 $('input:checkbox').closest('tr').removeClass('selected');
 $(window.location.search.substring(1).split(/([a-z])/).filter(function(k){return k!=""}).map(function(k){return '#'+xlat[k]}).join(',')).addClass('selected');
             }
+            function updateqs(){
+                window.history.replaceState('','','?'+$('.selected').map(function(i,e){return xlat[$(e).attr('id')]}).toArray().join(''));
+            }
             $(document).ready(function(event){
                 $('input:checkbox').change(function(){
                     p=$(this).closest('tr');
                     p.toggleClass('selected');
                     p.toggleClass('select');
+                    updateqs();
+                    refreshboard();
                 });
+                refreshboard();
             });
         </script>
         <script type="text/javascript" src="js/xlat.js"></script>
