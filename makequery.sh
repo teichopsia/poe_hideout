@@ -9,7 +9,7 @@ perl -ne '
 perl -e '
 	$/=undef;
 	my @div=split(/\n/,<STDIN>);
-	my @xf=(map{$_}(a..z));
+	my @xf=(map{my $j=$_;map{$j.$_}(a..z);}(A..B));
 	my $qin={};
 	my $qout={};
 	for(my $i=0;$i<=$#div;$i++){
