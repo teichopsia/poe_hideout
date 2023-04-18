@@ -8,13 +8,25 @@
             window.jQuery || document.write('<script src="js/jquery-2.1.3.min.js"><\/script>')
         </script>
         <script type="text/javascript">
+            function refreshboard(){
+                $('input:checkbox').closest('tr').removeClass('selected');
+$(window.location.search.substring(1).split(/([A-B][a-z])/).filter(function(k){return k!=""}).map(function(k){return '#'+xlat[k]}).join(',')).addClass('selected');
+            }
+            function updateqs(){
+                window.history.replaceState('','','?'+$('.selected').map(function(i,e){return xlat[$(e).attr('id')]}).toArray().join(''));
+            }
             $(document).ready(function(event){
                 $('input:checkbox').change(function(){
-                    $(this).closest('tr').toggleClass('selected');
-                    $(this).closest('tr').toggleClass('select');
+                    p=$(this).closest('tr');
+                    p.toggleClass('selected');
+                    p.toggleClass('select');
+                    updateqs();
+                    refreshboard();
                 });
+                refreshboard();
             });
         </script>
+        <script type="text/javascript" src="js/xlat.js"></script>
         <link rel="stylesheet" type="text/css" href="css/layout.css"/>
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     </head>
@@ -24,29 +36,47 @@
             <h1>Hideouts</h1>
             <div id="hideout" class="hideout">
                 <table class="body">
-<tr><th>&nbsp;</th><th>Hideout</th><th>Location</th><th>Rarity</th><th>Zone</th></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Arboreal Hideout</td><td>Terrace Map</td><td>Extremely Rare</td><td>T14</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Backstreet Hideout</td><td>Arcade Map</td><td>Rare</td><td>T7</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Baleful Hideout</td><td>The Chambers of Sins Level 2</td><td>&nbsp;</td><td>Act 7</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Battle-Scarred Hideout</td><td>Promenade Map</td><td>Rare</td><td>T8</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Brutal Hideout</td><td>Tower Map</td><td>Very Rare</td><td>T15</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Cartographer's Hideout</td><td>The Templar Laboratory</td><td>&nbsp;</td><td>Acts</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Coastal Hideout</td><td>Atoll Map</td><td>Rare</td><td>T1</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Coral Hideout</td><td>The Cavern of Anger</td><td>&nbsp;</td><td>Act 6</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Desert Hideout</td><td>The Oasis<td>&nbsp;</td><td>Act 9</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Enlightened Hideout</td><td>Academy Map<td>Rare</td><td>T6</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Excavated Hideout</td><td>The Crystal Veins<td>&nbsp;</td><td>Acts</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Glacial Hideout</td><td>Iceberg Map<td>Very Rare</td><td>T2</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Immaculate Hideout</td><td>Ivory Temple Map<td>Rare</td><td>T12</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Lush Hideout</td><td>The Dread Thicket<td>&nbsp;</td><td>Act 2</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Luxurious Hideout</td><td>The Bath House<td>&nbsp;</td><td>Act 8</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Overgrown Hideout</td><td>Orchard Map<td>Very Rare</td><td>T8</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Robber's Trench Hideout</td><td>Dig Map<td>Extremely Rare</td><td>T13</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Skeletal Hideout</td><td>The Ossuary<td>&nbsp;</td><td>Act 10</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Stately Hideout</td><td>Oriath Square/The Ruined Square<td>&nbsp;</td><td>Act 5</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Sunken Hideout</td><td>Sunken City Map<td>Extremely Rare</td><td>T14</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Undercity Hideout</td><td>The Sewers<td>&nbsp;</td><td>Act 3</td></tr>
-<tr class="select"><td><input type="checkbox"/></td><td>Unearthed Hideout</td><td>Graveyard Map<td>Rare</td><td>T3</td></tr>
+                    <tr><th>&nbsp;</th><th>Hideout</th><th>Location</th><th>Rarity</th><th>Zone</th></tr>
+                    <tr id="alpine" class="select"><td><input type="checkbox"/></td><td>Alpine Hideout</td><td>Summit Map</td><td>Very Rare</td><td>T13</td></tr>
+                    <tr id="arboreal" class="select"><td><input type="checkbox"/></td><td>Arboreal Hideout</td><td>Terrace Map</td><td>Extremely Rare</td><td>T12</td></tr>
+                    <tr id="backstreet" class="select"><td><input type="checkbox"/></td><td>Backstreet Hideout</td><td>Arcade Map</td><td>Rare</td><td>T4</td></tr>
+                    <tr id="baleful" class="select"><td><input type="checkbox"/></td><td>Baleful Hideout</td><td>The Chambers of Sins Level 2</td><td>&nbsp;</td><td>Act 7</td></tr>
+                    <tr id="battle" class="select"><td><input type="checkbox"/></td><td>Battle-Scarred Hideout</td><td>Promenade Map</td><td>Rare</td><td>T6</td></tr>
+                    <tr id="brutal" class="select"><td><input type="checkbox"/></td><td>Brutal Hideout</td><td>Tower Map</td><td>Very Rare</td><td>T13</td></tr>
+                    <tr id="cartographer" class="select"><td><input type="checkbox"/></td><td>Cartographer's Hideout</td><td>The Templar Laboratory</td><td>&nbsp;</td><td>Acts</td></tr>
+                    <tr id="celestial" class="select"><td><input type="checkbox"/></td><td>Celestial Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="champion" class="select"><td><input type="checkbox"/></td><td>Champion Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="coastal" class="select"><td><input type="checkbox"/></td><td>Coastal Hideout</td><td>Atoll Map</td><td>Rare</td><td>T3</td></tr>
+                    <tr id="coral" class="select"><td><input type="checkbox"/></td><td>Coral Hideout</td><td>The Cavern of Anger</td><td>&nbsp;</td><td>Act 6</td></tr>
+                    <tr id="corrupted" class="select"><td><input type="checkbox"/></td><td>Corrupted Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="darkwood" class="select"><td><input type="checkbox"/></td><td>Darkwood Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="desert" class="select"><td><input type="checkbox"/></td><td>Desert Hideout</td><td>The Oasis<td>&nbsp;</td><td>Act 9</td></tr>
+                    <tr id="divided" class="select"><td><input type="checkbox"/></td><td>Divided Hideout</td><td>The Twilight Temple</td><td>Rare</td><td>&nbsp;</td></tr>
+                    <tr id="doomguard" class="select"><td><input type="checkbox"/></td><td>Doomguard Hideout</td><td>supporter pack mtx - doomguard supporter</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="eclipsed" class="select"><td><input type="checkbox"/></td><td>Eclipsed Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="enlightened" class="select"><td><input type="checkbox"/></td><td>Enlightened Hideout</td><td>Academy Map<td>Rare</td><td>T7</td></tr>
+                    <tr id="excavated" class="select"><td><input type="checkbox"/></td><td>Excavated Hideout</td><td>The Crystal Veins<td>&nbsp;</td><td>Acts</td></tr>
+                    <tr id="furious" class="select"><td><input type="checkbox"/></td><td>Furious Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="glacial" class="select"><td><input type="checkbox"/></td><td>Glacial Hideout</td><td>Iceberg Map<td>Very Rare</td><td>T1</td></tr>
+                    <tr id="haunted" class="select"><td><input type="checkbox"/></td><td>Haunted Hideout</td><td>Haunted Mansion Map<td>Extremely Rare</td><td>T2</td></tr>
+                    <tr id="immaculate" class="select"><td><input type="checkbox"/></td><td>Immaculate Hideout</td><td>Ivory Temple Map<td>Rare</td><td>T14</td></tr>
+                    <tr id="indomitable" class="select"><td><input type="checkbox"/></td><td>Indomitable Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="innocent" class="select"><td><input type="checkbox"/></td><td>Innocent Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="lush" class="select"><td><input type="checkbox"/></td><td>Lush Hideout</td><td>The Dread Thicket<td>&nbsp;</td><td>Act 2</td></tr>
+                    <tr id="luxurious" class="select"><td><input type="checkbox"/></td><td>Luxurious Hideout</td><td>The Bath House<td>&nbsp;</td><td>Act 8</td></tr>
+                    <tr id="morbid" class="select"><td><input type="checkbox"/></td><td>Morbid Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="overgrown" class="select"><td><input type="checkbox"/></td><td>Overgrown Hideout</td><td>Orchard Map<td>Very Rare</td><td>T8</td></tr>
+                    <tr id="ravenous" class="select"><td><input type="checkbox"/></td><td>Ravenous Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="robber" class="select"><td><input type="checkbox"/></td><td>Robber's Trench Hideout</td><td>Dig Map<td>Extremely Rare</td><td>T11</td></tr>
+                    <tr id="sanguine" class="select"><td><input type="checkbox"/></td><td>Sanguine Hideout</td><td>Crimson Temple Map<td>Extremely Rare</td><td>T13</td></tr>
+                    <tr id="shaped" class="select"><td><input type="checkbox"/></td><td>Shaped Hideout</td><td>mtx store purchase</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="skeletal" class="select"><td><input type="checkbox"/></td><td>Skeletal Hideout</td><td>The Ossuary<td>&nbsp;</td><td>Act 10</td></tr>
+                    <tr id="stately" class="select"><td><input type="checkbox"/></td><td>Stately Hideout</td><td>Oriath Square/The Ruined Square<td>&nbsp;</td><td>Act 5</td></tr>
+                    <tr id="sunken" class="select"><td><input type="checkbox"/></td><td>Sunken Hideout</td><td>Sunken City Map<td>Extremely Rare</td><td>T12</td></tr>
+                    <tr id="sunspire" class="select"><td><input type="checkbox"/></td><td>Sunspire Hideout</td><td>supporter pack mtx - sunspire supporter</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="towering" class="select"><td><input type="checkbox"/></td><td>Towering Hideout</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+                    <tr id="undercity" class="select"><td><input type="checkbox"/></td><td>Undercity Hideout</td><td>The Sewers<td>&nbsp;</td><td>Act 3</td></tr>
+                    <tr id="unearthed" class="select"><td><input type="checkbox"/></td><td>Unearthed Hideout</td><td>Graveyard Map<td>Rare</td><td>T5</td></tr>
                 </table>
             </div>
         </section>
